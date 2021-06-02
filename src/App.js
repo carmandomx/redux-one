@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import './App.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { increment, decrement } from './actions/counterActions'
+import TodoContainer from './components/TodoContainer'
+function App () {
+  const value = useSelector(state => state.counter.counter)
+  const dispatch = useDispatch()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className='App'>
+      <header className='App-header'>
+        <h3>Contador: {value}</h3>
+
+        <button onClick={() => dispatch(increment())}>+</button>
+
+        <button
+          onClick={() => {
+            if (value > 0) {
+              dispatch(decrement())
+            }
+          }}
         >
-          Learn React
-        </a>
+          -
+        </button>
+
+        <br />
+
+        <TodoContainer />
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
